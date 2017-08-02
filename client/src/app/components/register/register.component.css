@@ -1,14 +1,16 @@
 
-/*@media only screen and (min-width: 700px){
-    .container2{
-        padding-left: 10%;
-        padding-right: 10%;
-    }
-}*/
 
-/*@media only screen and (min-width: 900px){
-    .container2{
-        padding-left: 15%;
-        padding-right: 15%;
+
+@media only screen and (min-width: 992px){
+    .container{
+        padding-left: 13%;
+        padding-right: 13%;
     }
-}*/ 
+} 
+
+@media only screen and (min-width: 1200px){
+    .container{
+        padding-left: 18%;
+        padding-right: 18%;
+    }
+}

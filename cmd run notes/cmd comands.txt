@@ -1,0 +1,10 @@
+to run MongoDB 
+C:\Program Files\MongoDB\Server\3.4\bin> mongod
+
+to run Node.js
+C:\Users\alexa\Desktop\MeanProj> npm start (Only once)
+C:\Users\alexa\Desktop\MeanProj> node index.js
+
+to run angular2 (Development Mode)
+C:\Users\alexa\Desktop\MeanProj\client> ng build(Once?)
+C:\Users\alexa\Desktop\MeanProj\client> ng serve

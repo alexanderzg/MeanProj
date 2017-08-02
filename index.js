@@ -1,13 +1,20 @@
+//Express Package
 const express = require('express');
+
+//Initializing an Express appication to const app
 const app = express();
+
 const router = express.Router();
 const mongoose = require('mongoose');
+
+//import config module 'database.js'
 const config = require('./config/database');
+
 const path = require('path');
 const authentication = require('./routes/authentication')(router);
 const bodyParser = require('body-parser');
 
-//Database Connection
+//Database Connection to MongoDb using Config module
 mongoose.Promise = global.Promise;
 mongoose.connect(config.uri, (err) => {
     if(err){
