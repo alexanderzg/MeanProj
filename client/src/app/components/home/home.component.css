@@ -1,0 +1,127 @@
+.row.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+}
+.row.no-gutters > [class^="col-"],
+.row.no-gutters > [class*=" col-"] {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+   .col-lg-3,
+   .col-md-4,
+   .col-sm-6,
+   .col-xs-12
+  {
+        border: 2px solid;
+        border-color: #8db4e2;
+   }
+
+   .container-fluid{
+    color: #1f497d;
+   }
+
+   .color-blue{
+    background-color: #d5e5ff;
+   }
+
+    .color-pink{
+    background-color: #fff0ff;
+   }
+
+   .color-lgblue{
+    background-color: #ddeeff;
+   }
+
+   .color-dkpink{
+    background-color: #f2dcec;
+   }
+
+   .color-yellow{
+    background-color: #ffffcc;
+    border-bottom: 2px solid;
+    border-color: #8db4e2;
+   }
+   .color-yellow-total{
+    background-color: #ffffcc;
+    border-top: 1px solid;
+    border-color: #8db4e2;
+    font-size: 16px;
+    font-weight: bold;
+   }
+
+  .quarter{
+    position: absolute;
+    left: 10px;
+    bottom: 2px;
+    font-size: 20px;
+    font-weight: bold;
+   }
+
+  .units{
+    padding-top: 44px;
+    font-size: 16px;
+    font-weight: bold;
+    padding-left: 6px;
+   }
+
+   .bot-margin{
+     border-bottom: 2px solid; 
+     border-color: #8db4e2;
+   }
+
+   .vertical{
+    writing-mode:tb-rl;
+    -webkit-transform:rotate(180deg);
+    -moz-transform:rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform:rotate(180deg);
+    transform: rotate(180deg);
+    white-space:nowrap;
+    display:block;
+    bottom:0;
+    font-size: 12px;
+    font-weight: bold;
+    padding-top: 1px;
+    height: 60px;
+    margin: 0px;
+    
+    }
+
+    .no-margin{
+      padding: 0;
+      margin: 0;
+      
+    }
+
+    .option-h{
+      height: 68px;  
+    }
+
+    .nav-h{
+      height: 70px;
+    
+    }
+
+    .btn-default{
+        height: 22px;
+    }
+
+    .col-xs-6{
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .btn{
+        border-radius: 0px;
+        border-top: none;
+        border-bottom-color: #8db4e2;
+        border-left-color: #8db4e2;
+        border-right-color: #8db4e2;
+    }
+
+    .btn-test{
+        border-bottom: none;
+    }
+
+   

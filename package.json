@@ -1,0 +1,29 @@
+{
+  "name": "mean-proj",
+  "version": "1.0.0",
+  "description": "Mean Project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexanderzg/MeanProj.git"
+  },
+  "keywords": [
+    "MEAN",
+    "Stack",
+    "Angular"
+  ],
+  "author": "Alexander Zarate",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexanderzg/MeanProj/issues"
+  },
+  "homepage": "https://github.com/alexanderzg/MeanProj#readme",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3"
+  }
+}
