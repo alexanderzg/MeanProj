@@ -1,10 +1,13 @@
 to run MongoDB 
 C:\Program Files\MongoDB\Server\3.4\bin> mongod
+	cd C:\Program Files\MongoDB\Server\3.4\bin && mongod
 
-to run Node.js
-C:\Users\alexa\Desktop\MeanProj> npm start (Only once)
-C:\Users\alexa\Desktop\MeanProj> node index.js
+to run Node.js (Server backend development mode - localhost 8080)
+C:\Users\alexa\Desktop\MeanProj> npm start (equivalent)
+C:\Users\alexa\Desktop\MeanProj> nodemon index.js
+	cd C:\Users\alexa\Desktop\MeanProj && nodemon index.js
 
-to run angular2 (Development Mode)
-C:\Users\alexa\Desktop\MeanProj\client> ng build(Once?)
+to run angular2 (Server frontend Development Mode - localhost 4200)
+C:\Users\alexa\Desktop\MeanProj\client> ng build(When ready to deplyment)
 C:\Users\alexa\Desktop\MeanProj\client> ng serve
+	cd C:\Users\alexa\Desktop\MeanProj\client && ng serve

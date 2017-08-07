@@ -1,0 +1,13 @@
+@media only screen and (min-width: 992px){
+    .container{
+        padding-left: 13%;
+        padding-right: 13%;
+    }
+} 
+
+@media only screen and (min-width: 1200px){
+    .container{
+        padding-left: 18%;
+        padding-right: 18%;
+    }
+}

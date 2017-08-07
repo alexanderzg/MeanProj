@@ -1,7 +1,12 @@
 
 <div class="container">
-<h1 class="page-header">Register Page</h1>
+<h1 class="page-header">Register</h1>
 
+<div class="row show-hide-message">
+  <div [ngClass]="messageClass">
+    {{ message }}
+  </div>
+</div>
 
 <!-- Registration Form -->
 <form [formGroup]="form"(submit)="onRegisterSubmit()">
@@ -9,15 +14,19 @@
   <!-- Username Input -->
   <div class="form-group">
     <label for="username">Username</label>
-    <div [ngClass]="{'has-error': (form.controls.username.errors && form.controls.username.dirty), 
-      'has-success': !form.controls.username.errors}">
+    <div [ngClass]="{'has-error': (form.controls.username.errors && form.controls.username.dirty)
+    || (!usernameValid && form.controls.username.dirty), 
+      'has-success': !form.controls.username.errors && usernameValid}">
       <input type="text" name="username" class="form-control" autocomplete="off" placeholder="*Username" 
-      formControlName="username" />
+      formControlName="username" (blur)="checkUsername()" />
+      <!--Validation-->
       <ul class="help-block">
         <li *ngIf="form.controls.username.errors?.required && form.controls.username.dirty">This field is required</li>
         <li *ngIf="(form.controls.username.errors?.minlength || form.controls.username.errors?.maxlength) 
                     && form.controls.username.dirty"> Minimum characters: 3, Maximun characters: 15</li> 
-        <li *ngIf="form.controls.username.errors?.validateUsername && form.controls.username.dirty"> Username must not have special characters</li>
+        <li *ngIf="form.controls.username.errors?.validateUsername && form.controls.username.dirty"> 
+          Username must not have special characters</li>
+          <li *ngIf="usernameMessage">{{usernameMessage}} </li>  
       </ul>
     </div>
   </div>
@@ -26,15 +35,19 @@
 
   <div class="form-group">
     <label for="email">Email</label>
-    <div [ngClass]="{'has-error': (form.controls.email.errors && form.controls.email.dirty), 
-      'has-success': !form.controls.email.errors}">
+    <div [ngClass]="{'has-error': (form.controls.email.errors && form.controls.email.dirty) 
+    || (!emailValid && form.controls.email.dirty), 
+      'has-success': !form.controls.email.errors && emailValid}">
       <input type="text" name="email" class="form-control" autocomplete="off" placeholder="*Email"
-      formControlName="email"/>
+      formControlName="email" (blur) = "checkEmail()"/>
+      <!--Validation-->
       <ul class="help-block">
+        <!--? means if only the . what follows exists, then proceed-->
         <li *ngIf="form.controls.email.errors?.required && form.controls.email.dirty">This field is required</li> 
         <li *ngIf="(form.controls.email.errors?.minlength || form.controls.email.errors?.maxlength) 
                     && form.controls.email.dirty"> Minimum characters: 8, Maximun characters: 30</li> 
-        <li *ngIf= "form.controls.email.errors?.validateEmail && form.controls.email.dirty">This must be a valid e-mail</li>           
+        <li *ngIf= "form.controls.email.errors?.validateEmail && form.controls.email.dirty">This must be a valid e-mail</li> 
+        <li *ngIf="emailMessage">{{emailMessage}} </li>           
       </ul>
     </div>
   </div>
@@ -49,7 +62,8 @@
       <ul class="help-block">
         <li *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">This field is required</li>
         <li *ngIf="form.controls.password.errors?.validatePassword && form.controls.password.dirty"> 
-          Password must have at least one uppercase, lowercase, special characters, and number</li> 
+          Password must have at least one uppercase, lowercase, special characters, and number</li>
+    
       </ul>
     </div>
   </div>
@@ -69,8 +83,8 @@
     </div>
   </div>
 
-  <!-- Submit Input -->
-  <input [disabled]="!form.valid" type="submit" class="btn btn-primary" value="Submit" />
+  <!-- Submit Input button-->
+  <input [disabled]="!form.valid || processing || !emailValid || !usernameValid" type="submit" class="btn btn-primary" value="Submit" />
 </form>
 
 <!-- Registration Form /-->
@@ -79,6 +93,5 @@
 <p>Email: {{form.controls.email.value}}</p>
 <p>Password: {{form.controls.password.value}}</p>
 </div>
-
 
 

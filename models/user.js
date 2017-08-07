@@ -3,6 +3,7 @@ mongoose.Promise = global.Promise;
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt-nodejs');
 
+//Function to check email length
 let emailLengthChecker = (email) => {
     if(!email){
         return false;
@@ -15,6 +16,7 @@ let emailLengthChecker = (email) => {
     }
 };
 
+//Function to check valid emails
 let validEmailChecker = (email) => {
     if(!email){
         return false;
@@ -26,6 +28,7 @@ let validEmailChecker = (email) => {
 
 };
 
+//Email object validator
 const emailValidators = [
     {
         validator: emailLengthChecker, 
@@ -37,6 +40,7 @@ const emailValidators = [
     }
 ];
 
+//Function to check usenrmae length
 let usernameLengthChecker = (username) => {
     if(!username){
         return false;
@@ -49,6 +53,7 @@ let usernameLengthChecker = (username) => {
     }
 };
 
+//Function to check valid username
 let validUsername = (username) => {
     if(!username){
         return false;
@@ -58,6 +63,7 @@ let validUsername = (username) => {
     }
 };
 
+//Username object validator
 const usernameValidators = [
     {
         validator: usernameLengthChecker, 
@@ -69,6 +75,7 @@ const usernameValidators = [
     }
 ];
 
+//Function to check password length
 let passwordLengthChecker = (password) => {
     if(!password){
         return false;
@@ -81,6 +88,7 @@ let passwordLengthChecker = (password) => {
     }
 };
 
+//Function to check valid password
 let validPassword = (password) => {
     if(!password){
         return false;
@@ -90,6 +98,7 @@ let validPassword = (password) => {
     }
 };
 
+//Password Object Validator
 const passwordValidators = [
     {
         validator: passwordLengthChecker, 
@@ -101,6 +110,7 @@ const passwordValidators = [
     }
 ];
 
+// Declaration of variables
 const userSchema = new Schema({
   email: { type: String, required: true, unique: true, lowercase: true,
            validate: emailValidators },
@@ -110,6 +120,7 @@ const userSchema = new Schema({
             validate: passwordValidators}
 });
 
+//Schema Middleware to Encrypt Password
 userSchema.pre('save', function(next) {
     if(!this.isModified('password')){
         return next();
@@ -121,8 +132,9 @@ userSchema.pre('save', function(next) {
     })
 });
 
-userSchema.methods.comparePassword = (password) => {
-    return bcrypt.compareSync(password, this.password);
+//Methods to compare password to encrypted password upon Login
+userSchema.methods.comparePassword = function(password) {
+    return bcrypt.compareSync(password, this.password); //Return comparison of Login password to password in database
 };
 
 module.exports = mongoose.model('User', userSchema);
