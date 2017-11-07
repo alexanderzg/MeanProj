@@ -1,44 +1,123 @@
-<nav class="navbar navbar-default navbar-custom">
+<nav class="navbar navbar-default navbar-custom ">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+    <div *ngIf="!getDashboardFlag()"class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" 
+      aria-expanded="false"  (click)="setHomeFlag(true)">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
       <!--It links the button with a page-->
-      <a class="navbar-brand" routerLink="/">Major Planner</a>
+      <a class="navbar-brand" title="Home" (click)= "resetPage()" routerLink="/">myMajorPlanner</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
+      <ul *ngIf ="authService.loggedIn()" class="nav navbar-nav">
         <!--It keeps the current page active-->
-        <li *ngIf ="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"> 
+        <!--<li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"> 
              <a routerLink="/dashboard"> Dashboard <span class="sr-only">(current)</span></a>
-        </li>
-        <li *ngIf ="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"><a routerLink="/profile"> Profile </a></li>
+        </li>-->
+        <!--<li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+          <a class="glyphicon glyphicon-user" routerLink="/profile"> {{ username }} </a>
+        </li>-->
 
+        <li *ngIf ="getHomeFlag()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+          <a  class="glyphicon glyphicon-dashboard" (click)="setHomeFlag(false)" (click)="hideNavBar()"  routerLink="/dashboard"> Dashboard</a>
+        </li>
+        <!--<li *ngIf ="getHomeFlag()">
+          <a data-toggle="collapse" class="glyphicon glyphicon-info-sign" data-toggle="collapse" routerLink="/profile"> About</a>
+        </li> -->
+
+        <li *ngIf ="getHomeFlag() && mobileWidth()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+            <a class="glyphicon glyphicon-user" data-toggle="collapse" routerLink="/profile"> {{firstname}} </a>
+        </li>
+        <li *ngIf ="getHomeFlag() && mobileWidth()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">                                            
+            <a class="glyphicon glyphicon-log-out" href="#" (click)="onLogoutClick()"> Logout</a>            
+        </li>
+
+        <ul class="nav navbar-nav nav-pills margin-left2">
+            <li *ngIf ="!getHomeFlag()">
+              <a class="glyphicon glyphicon-cog" data-toggle="collapse" href="#collapse1" title="Change Plan Preferences"> </a>
+            </li>
+            <li *ngIf ="!getHomeFlag()">
+              <a class="glyphicon glyphicon-pencil" data-toggle="collapse" title="Edit Mode"> </a>
+            </li>
+            <li *ngIf ="!getHomeFlag()">
+              <a class="glyphicon glyphicon-floppy-disk" data-toggle="collapse" title="Save Changes"> </a>
+            </li>
+            <li *ngIf ="!getHomeFlag()">
+              <a class="glyphicon glyphicon-save" data-toggle="collapse" title="Download Plan"> </a>
+            </li>
+            <li *ngIf ="!getHomeFlag()">
+              <a class="glyphicon glyphicon-print" data-toggle="collapse" title="Print Plan" (click)="authService.print()"> </a>
+            </li>  
+            <li *ngIf ="!getHomeFlag() && mobileWidth()">
+              <a class="glyphicon glyphicon-home" title="Home" (click)= "resetPage()" (click)="setDashboardFlag(false)" routerLink="/" data-toggle="collapse"> </a>
+            </li>  
+        </ul>
       </ul>
       
-      <ul class="nav navbar-nav navbar-right">
-        <li *ngIf ="authService.loggedIn()" ><a href="#" (click)="onLogoutClick()">Logout</a></li>
-      </ul>
 
+ 
+      <ul *ngIf ="authService.loggedIn()" class="nav navbar-nav navbar-right dropdown margin-bot">
+        <li *ngIf ="!mobileWidth()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+        
+          <ul class="nav navbar-nav">
+            <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+                <a class="glyphicon glyphicon-user navbar-left margin-right margin-left" title="Profile" (click)="setHomeFlag(true)"  routerLink="/profile"> {{ firstname }} </a>
+            </li>
+            <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+                <a class="glyphicon glyphicon-log-out" title="Log Out" href="#" (click)="onLogoutClick()"> Logout</a> 
+            </li>
+            </ul>
+         </li>
+      </ul>
+          
+     <!--in line login input fields-->
+     <form [formGroup]="form"(submit)="onLoginSubmit()" *ngIf="!authService.loggedIn()" class="navbar-right">
+        <label class="test form-inline margin-right2" *ngIf ="!authService.getFlag()">
+            <div class="form-group">
+                <div [ngClass]="{'has-error': form.controls.email.errors && form.controls.email.dirty, 
+                  'has-success': form.controls.email.valid && form.controls.email.dirty }">
+                      <input type="text" name="email" class="form-control" formControlName="email" placeholder="Email"/>
+                </div>
+            </div>
+            <div class="form-group">
+                  <div [ngClass]="{'has-error': form.controls.password.errors && form.controls.password.dirty, 
+                    'has-success': form.controls.password.valid && form.controls.password.dirty }">
+                      <input type="password" name="password" class="form-control" formControlName="password" placeholder="Password"/>
+                  </div>
+            </div>
+          
+            <input [disabled]="!form.valid" type="submit" class="btn btn-default" value="Login" />
+        </label>
 
-      <ul class="nav navbar-nav navbar-right">
+        <div *ngIf="mobileWidth() && !authService.getFlag()">
+            <hr>
+        </div>
+        
+        <ul class="nav navbar-nav navbar-right">
+            <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+            <a routerLink="/register">Sign up</a></li>
+        </ul>
+      </form>
+ 
+      <ul class="nav navbar-nav navbar-right" *ngIf ="authService.getFlag()">
         <li *ngIf ="!authService.loggedIn()" ><a routerLink = "/login">Login</a></li>
       </ul>
+      
+     
 
-      <ul class="nav navbar-nav navbar-right">
-        <li *ngIf ="!authService.loggedIn()"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"><a routerLink="/register">Register</a></li>
-      </ul>
 
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
   <div class="navbar-line"> 
 
+
   </div>
+
 </nav>
+

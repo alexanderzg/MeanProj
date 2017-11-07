@@ -19,29 +19,34 @@ processing = false;
 form: FormGroup;
 previousUrl;
 
+
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
     private authGuard: AuthGuard
   ) { 
+  
     this.createForm();
+   
+   
   }
 
   createForm(){
-    this.form = this.formBuilder.group({
-      username: ['', Validators.required],
+     this.authService.setFlag(true);
+     this.form = this.formBuilder.group({
+      email: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
   disableForm(){
-    this.form.controls['username'].disable();
+    this.form.controls['email'].disable();
     this.form.controls['password'].disable();
   }
 
   enableForm(){
-    this.form.controls['username'].enable();
+    this.form.controls['email'].enable();
     this.form.controls['password'].enable();
   }
 
@@ -49,7 +54,7 @@ previousUrl;
     this.processing = true;
     this.disableForm();
     const user = {
-      username: this.form.get('username').value,
+      email: this.form.get('email').value,
       password: this.form.get('password').value
     }
     this.authService.login(user).subscribe(data => {
@@ -68,12 +73,13 @@ previousUrl;
           }else{
             this.router.navigate(['/dashboard'])
           }         
-        }, 1000);
+        }, 0);
       }
     });
   }
 
   ngOnInit() {
+   
     if(this.authGuard.redirectUrl){
       this.messageClass = 'alert alert-danger';
       this.message = 'You must be logged in to view that page.';

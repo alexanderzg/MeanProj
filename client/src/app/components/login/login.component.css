@@ -1,13 +1,31 @@
-@media only screen and (min-width: 992px){
+.btn-fix{
+    /*max-width: 700px;*/
+    width: 100%;
+    /*min-width: 300px;*/
+    border-radius: 30px;
+}
+
+/*.form-control{
+    max-width: 700px;
+}*/
+
+.fix-form{
+    max-width: 500px;
+     
+}
+
+@media only screen and (min-width: 520px){
     .container{
-        padding-left: 13%;
-        padding-right: 13%;
+        padding-left: 17%;
+        padding-right: 17%;
     }
+
 } 
 
-@media only screen and (min-width: 1200px){
+@media only screen and (min-width: 992px){
     .container{
-        padding-left: 18%;
-        padding-right: 18%;
+        padding-left: 25%;
+        padding-right: 25%;
     }
-}
+
+} 
