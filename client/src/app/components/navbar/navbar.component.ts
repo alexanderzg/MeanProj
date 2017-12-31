@@ -24,6 +24,7 @@ export class NavbarComponent implements OnInit{
   homeFlag;
   innerWidth;
   dashboardFlag;
+  navbarheight = false;
   
 
   constructor(
@@ -127,23 +128,31 @@ hideNavBar(){
     this.authService.login(user).subscribe(data => {
       if(!data.success){
         this.messageClass = 'alert alert-danger';
-        this.flashMessagesService.show('Invalid Email or Password', { cssClass: 'alert alert-danger container'});
+        // this.flashMessagesService.show('Invalid Email or Password', { cssClass: 'alert alert-danger container container'});
         this.message = data.message;
         this.processing = false;
+        setTimeout(()=> {
+          this.messageClass = undefined;
+          this.message = undefined;
+        }, 2000);
         this.router.navigate(['/login']);
        
       }else{
-        this.messageClass = 'alert alert-success';
+        //  this.messageClass = 'alert alert-success';
         // this.flashMessagesService.show('You are now Logged In', { cssClass: 'alert alert-success'});
-        this.message = data.message;
+        // this.message = data.message;
         this.authService.storeUserData(data.token, data.user);
         setTimeout(()=> {
           if(this.previousUrl){
             this.router.navigate([this.previousUrl]);
           }else{
+            this.messageClass = undefined;
+            this.message = undefined;
             this.router.navigate(['/dashboard'])
           }         
-        }, 0);
+        }, 1000);
+
+       
       }
     });
   }

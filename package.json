@@ -27,5 +27,7 @@
     "express": "^4.15.3",
     "jsonwebtoken": "^7.4.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@angular/cli": "^1.6.3"
+  }
 }

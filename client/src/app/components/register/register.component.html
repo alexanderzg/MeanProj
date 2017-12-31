@@ -2,14 +2,20 @@
 <div class="container center_div">
 <h2 class="page-header">Join myMajorPlanner</h2>
 
-<div class="row show-hide-message">
+<!--<div class="row show-hide-message">
+  <div [ngClass]="messageClass">
+    {{ message }}
+  </div>
+</div>-->
+
+<!-- Registration Form -->
+<form [formGroup]="form"(submit)="onRegisterSubmit()" class="fix-form">
+
+  <div class="row show-hide-message fix-alert-padding">
   <div [ngClass]="messageClass">
     {{ message }}
   </div>
 </div>
-
-<!-- Registration Form -->
-<form [formGroup]="form"(submit)="onRegisterSubmit()" class="fix-form">
 
   <!-- Username Input -->
   <!--<div class="form-group">

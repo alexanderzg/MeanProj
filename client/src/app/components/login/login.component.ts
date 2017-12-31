@@ -63,6 +63,10 @@ previousUrl;
         this.message = data.message;
         this.processing = false;
         this.enableForm();
+        setTimeout(()=> {
+          this.messageClass = undefined;
+          this.message = undefined;
+         }, 2000);
       }else{
         this.messageClass = 'alert alert-success';
         this.message = data.message;
@@ -73,7 +77,7 @@ previousUrl;
           }else{
             this.router.navigate(['/dashboard'])
           }         
-        }, 0);
+        }, 500);
       }
     });
   }
